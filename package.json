@@ -1,7 +1,7 @@
 {
   "name": "patienttrackforcarers",
   "version": "1.1.1",
-  "description": "PatientTrackForCarers: An Ionic project",
+  "description": "PatientTrack For Carers - Making sure that your patient or loved one is safe.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",

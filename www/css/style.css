@@ -1,1 +1,8 @@
-/* Empty. Add your own CSS if you like */
+.centre {
+    margin: auto;
+    text-align: center;
+}
+
+.pad-top {
+    padding-top: 5%;
+}

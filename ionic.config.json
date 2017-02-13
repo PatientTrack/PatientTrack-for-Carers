@@ -1,0 +1,13 @@
+{
+  "name": "PatientTrackForCarers",
+  "app_id": "1",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*",
+    "!www/**/*.map"
+  ]
+}
