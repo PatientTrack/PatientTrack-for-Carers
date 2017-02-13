@@ -14,7 +14,11 @@
                 <span class="input-label">Password</span>
                 <input type="password" placeholder="Password">
             </label>
-            <button ng-click="go('/Templates/Login.html')" class="button button-calm button-block">Login</button>
+        </div>
+        <div ng-controller="PopupCtrl">
+            <button class="button button-calm button-block" ng-click="go('/Templates/ViewPatients.html')">
+                Login
+            </button>
         </div>
     </ion-content>
 </ion-view>

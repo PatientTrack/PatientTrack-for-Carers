@@ -779,15 +779,6 @@ $dark:                            #444 !default;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.centre {
-  margin: auto;
-  text-align: center;
-}
-
-.bottom {
-  bottom: 0%;
-}
-
 .ion-alert:before {
   content: ""; }
 
