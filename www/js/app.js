@@ -57,6 +57,11 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                         controller: 'RegisterCtrl'
                     }
                 }
+            })
+
+            .state('viewPatients', {
+                url: '/ViewPatients',
+                templateUrl: 'templates/ViewPatients.html'
             });
 
         // if none of the above states are matched, use this as the fallback
