@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>PatientTrack for Carers</title>
+    <link rel="manifest" href="manifest.json">
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
 </head>
-<body>
-
+<body ng-app="starter" ng-controller="PopupCtrl">
+<ion-header-bar class="bar-calm">
+    <h1 class="title">PatientTrack for Carers</h1>
+    <!--<button class="button icon ion-gear-a"></button>-->
+</ion-header-bar>
+<ion-content>
+</ion-content>
 </body>
 </html>
