@@ -1,0 +1,24 @@
+<ion-view>
+    <div class="bar bar-header bar-calm">
+        <img src="../img/Logo_square.png" height="100%">
+        <h1 class="title">PatientTrack for Carers</h1>
+        <a class="button button-icon icon ion-android-close" style="transform: translateY(-5%);"
+           href="#/ViewPatients"></a>
+    </div>
+    <ion-content class="has-header">
+            <div class="item item-divider">
+                Safe Zone
+            </div>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Change Username</span>
+                <input type="text" placeholder="Change Username">
+            </label>
+            <a class="button button-block button-balanced" ng-click="showChangeNameAlert()">Save</a>
+        <br/>
+            <div class="item item-divider">
+            Danger Zone!
+            </div>
+            <a class="button button-block button-energized" href="#/ChangePassword">Change Password</a>
+            <a class="button button-block button-assertive" ng-click="showConfirmDeleteAccount()">Delete Account</a>
+    </ion-content>
+</ion-view>

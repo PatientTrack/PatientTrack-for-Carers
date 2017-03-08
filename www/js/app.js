@@ -22,6 +22,16 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         });
     })
 
+    .factory('CarerService', ['$http', function ($http) {
+        var urlBase = 'http://patienttrackapiv2.azurewebsites.net/api';
+        var CarerService = {};
+        CarerService.getCarers = function () {
+            return $http.get(urlBase + '/Carers');
+        };
+
+        return CarerService;
+    }])
+
     .config(function ($stateProvider, $urlRouterProvider) {
 
         // Ionic uses AngularUI Router which uses the concept of states
@@ -59,9 +69,28 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 }
             })
 
+            .state('patientDetails', {
+                url: '/PatientDetails',
+                templateUrl: 'templates/PatientDetails.html',
+                controller: 'PatientDetailsCtrl'
+            })
+
+            .state('settings', {
+                url: '/Settings',
+                templateUrl: 'templates/Settings.html',
+                controller: 'SettingsCtrl'
+            })
+
+            .state('changePassword', {
+                url: '/ChangePassword',
+                templateUrl: 'templates/ChangePassword.html',
+                controller: 'ChangePasswordCtrl'
+            })
+
             .state('viewPatients', {
                 url: '/ViewPatients',
-                templateUrl: 'templates/ViewPatients.html'
+                templateUrl: 'templates/ViewPatients.html',
+                controller: 'ViewPatientsCtrl'
             });
 
         // if none of the above states are matched, use this as the fallback

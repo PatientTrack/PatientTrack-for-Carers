@@ -38,6 +38,9 @@
     "installed_plugins": {
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.patienttrackforcarers310869"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.patienttrackforcarers310869"
         }
     },
     "dependent_plugins": {

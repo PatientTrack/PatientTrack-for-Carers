@@ -6,3 +6,7 @@
 .pad-top {
     padding-top: 5%;
 }
+
+.v-align-centre {
+    transform: translateY(32%);
+}

@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>PatientTrack for Carers</title>
-</head>
-<body>
-this is a page
-</body>
-</html>
+<ion-view>
+    <div class="bar bar-header bar-calm">
+        <img src="../img/Logo_square.png" height="100%">
+        <h1 class="title">PatientTrack for Carers</h1>
+        <a class="button button-icon icon ion-android-add" style="transform: translateY(-5%);" ng-click="showAddPopup()"></a>
+    </div>
+    <ion-content class="has-header has-footer">
+        <h1 class="centre pad-top">Welcome!</h1>
+        <div class="list pad-top">
+            <div class="item item-button-right item-avatar">
+                <img src="../img/Profile.jpg" height="460" width="460"/>
+                <h2>Scho</h2>
+                <p>Croydon</p>
+                <a class="button button-balanced v-align-centre" href="#/PatientDetails">
+                    <i class="icon ion-android-pin"></i>
+                </a>
+            </div>
+        </div>
+        <div>
+            <a class="button button-block button-balanced" href="#/Settings">Settings</a>
+        </div>
+    </ion-content>
+</ion-view>
