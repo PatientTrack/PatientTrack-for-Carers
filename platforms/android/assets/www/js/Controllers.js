@@ -18,6 +18,14 @@ angular.module('starter.controllers', ['ionic'])
     .controller('ChangePasswordCtrl', function ($scope) {
     })
 
+    .controller('CarerController', function($scope, $http) {
+        var urlBase = 'http://patienttrackapiv2.azurewebsites.net/api';
+        $http.get(urlBase + '/Carers/1').
+        then(function(response) {
+            $scope.carers = response.data;
+        });
+    })
+
     .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout) {
         $scope.go = function (path) {
             $location.path(path);
@@ -67,14 +75,14 @@ angular.module('starter.controllers', ['ionic'])
         };
 
         // A confirm dialog for deleting a patient
-        $scope.showConfirmDeletePatient = function() {
+        $scope.showConfirmDeletePatient = function () {
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Delete Patient',
                 template: 'Are you sure you wish to delete this patient?'
             });
 
-            confirmPopup.then(function(res) {
-                if(res) {
+            confirmPopup.then(function (res) {
+                if (res) {
                     console.log('Confirmed');
                 } else {
                     console.log('Cancelled');
@@ -87,7 +95,7 @@ angular.module('starter.controllers', ['ionic'])
         };
 
         // A confirm dialog for deleting a patient
-        $scope.showConfirmDeleteAccount = function() {
+        $scope.showConfirmDeleteAccount = function () {
             var confirmPopup = $ionicPopup.show({
                 template: '<input type="password">',
                 title: 'Delete Account',
@@ -108,8 +116,8 @@ angular.module('starter.controllers', ['ionic'])
                 ]
             });
 
-            confirmPopup.then(function(res) {
-                if(res) {
+            confirmPopup.then(function (res) {
+                if (res) {
                     console.log('Confirmed');
                 } else {
                     console.log('Cancelled');
@@ -122,12 +130,12 @@ angular.module('starter.controllers', ['ionic'])
         };
 
         // An alert dialog
-        $scope.showChangeNameAlert = function() {
+        $scope.showChangeNameAlert = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Username Changed'
             });
 
-            alertPopup.then(function(res) {
+            alertPopup.then(function (res) {
                 console.log('Username changed');
             });
         };

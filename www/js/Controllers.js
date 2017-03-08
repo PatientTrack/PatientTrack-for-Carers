@@ -18,17 +18,12 @@ angular.module('starter.controllers', ['ionic'])
     .controller('ChangePasswordCtrl', function ($scope) {
     })
 
-    .controller('CarerController', function ($scope, CarerService) {
-        getCarers();
-        function getCarers() {
-            CarerService.getCarers()
-                .success(function (carers) {
-                    $scope.carers = carers;
-                })
-                .error(function (error) {
-                    $scope.status = 'Unable to load carer data: ' + error.message;
-                });
-        }
+    .controller('CarerController', function($scope, $http) {
+        var urlBase = 'http://patienttrackapiv2.azurewebsites.net/api';
+        $http.get(urlBase + '/Carers/1').
+        then(function(response) {
+            $scope.carers = response.data;
+        });
     })
 
     .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout) {

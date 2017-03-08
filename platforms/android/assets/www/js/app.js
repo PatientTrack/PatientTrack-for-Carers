@@ -22,8 +22,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         });
     })
 
-    
-
     .config(function ($stateProvider, $urlRouterProvider) {
 
         // Ionic uses AngularUI Router which uses the concept of states
@@ -36,7 +34,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
             .state('tab', {
                 url: '/tab',
                 abstract: true,
-                templateUrl: 'templates/tabs.html'
+                templateUrl: 'Templates/Tabs.html'
             })
 
             // Each tab has its own nav history stack:
@@ -45,7 +43,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 url: '/Login',
                 views: {
                     'tab-login': {
-                        templateUrl: 'templates/Login.html',
+                        templateUrl: 'Templates/Login.html',
                         controller: 'LoginCtrl'
                     }
                 }
@@ -55,7 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
                 url: '/Register',
                 views: {
                     'tab-register': {
-                        templateUrl: 'templates/Register.html',
+                        templateUrl: 'Templates/Register.html',
                         controller: 'RegisterCtrl'
                     }
                 }
@@ -63,25 +61,25 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
             .state('patientDetails', {
                 url: '/PatientDetails',
-                templateUrl: 'templates/PatientDetails.html',
+                templateUrl: 'Templates/PatientDetails.html',
                 controller: 'PatientDetailsCtrl'
             })
 
             .state('settings', {
                 url: '/Settings',
-                templateUrl: 'templates/Settings.html',
+                templateUrl: 'Templates/Settings.html',
                 controller: 'SettingsCtrl'
             })
 
             .state('changePassword', {
                 url: '/ChangePassword',
-                templateUrl: 'templates/ChangePassword.html',
+                templateUrl: 'Templates/ChangePassword.html',
                 controller: 'ChangePasswordCtrl'
             })
 
             .state('viewPatients', {
                 url: '/ViewPatients',
-                templateUrl: 'templates/ViewPatients.html',
+                templateUrl: 'Templates/ViewPatients.html',
                 controller: 'ViewPatientsCtrl'
             });
 
@@ -89,3 +87,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         $urlRouterProvider.otherwise('/tab/Register');
 
     });
+
+
