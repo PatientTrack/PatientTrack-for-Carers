@@ -18,12 +18,31 @@ angular.module('starter.controllers', ['ionic'])
     .controller('ChangePasswordCtrl', function ($scope) {
     })
 
-    .controller('CarerController', function($scope, $http) {
-        var urlBase = 'http://patienttrackapiv2.azurewebsites.net/api';
-        $http.get(urlBase + '/Carers/1').
-        then(function(response) {
-            $scope.carers = response.data;
-        });
+    .controller('CarerController', function ($scope, $http) {
+        $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/1')
+            .success(function(data, status, headers,config){
+                console.log('data success');
+                console.log(data); // for browser console
+                $scope.carers = data; // for UI
+            })
+            .error(function(data, status, headers,config){
+                console.log('data error');
+            });
+    })
+
+    .controller('PatientController', function ($scope, $http) {
+        $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/1')
+            .success(function(data, status, headers,config){
+                console.log('data success');
+                console.log(data); // for browser console
+                $scope.patients = data; // for UI
+            })
+            .error(function(data, status, headers,config){
+                console.log('data error');
+            })
+            .then(function(result){
+                things = carers.data;
+            });
     })
 
     .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout) {

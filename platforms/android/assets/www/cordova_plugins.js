@@ -25,10 +25,6 @@ module.exports = [
 ];
 module.exports.metadata = 
 // TOP OF METADATA
-{
-    "cordova-plugin-splashscreen": "4.0.1",
-    "cordova-plugin-geolocation": "2.4.1",
-    "cordova-plugin-compat": "1.1.0"
-}
+{}
 // BOTTOM OF METADATA
 });

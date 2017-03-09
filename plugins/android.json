@@ -41,6 +41,9 @@
         },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.patienttrackforcarers310869"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.patienttrackforcarers310869"
         }
     },
     "dependent_plugins": {
