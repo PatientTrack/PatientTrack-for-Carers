@@ -1,6 +1,6 @@
 <ion-view>
     <div class="bar bar-header bar-calm">
-        <img src="../img/Logo_square.png" height="100%">
+        <img src="img/Logo_square.png" height="100%">
         <h1 class="title">PatientTrack for Carers</h1>
     </div>
     <ion-content class="has-header">
@@ -12,15 +12,15 @@
         <div class="pad-top">
             <label class="item item-input item-floating-label">
                 <span class="input-label">Email Address</span>
-                <input type="text" placeholder="Email Address">
+                <input type="text" placeholder="Email Address" ng-model="userEmail">
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Password</span>
-                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Password" ng-model="userPwd">
             </label>
         </div>
-        <div ng-controller="PopupCtrl">
-            <a class="button button-balanced button-block" href="#/ViewPatients">Login</a>
+        <div ng-controller="CarerController">
+            <a class="button button-balanced button-block" ng-click="getDetails(1)">Login</a>
         </div>
     </ion-content>
 </ion-view>

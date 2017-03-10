@@ -1,17 +1,17 @@
 <ion-view>
     <div class="bar bar-header bar-calm">
-        <img src="../img/Logo_square.png" height="100%">
+        <img src="img/Logo_square.png" height="100%">
         <h1 class="title">PatientTrack for Carers</h1>
         <a class="button button-icon icon ion-android-close" style="transform: translateY(-5%);"
            href="#/ViewPatients"></a>
     </div>
     <ion-content class="has-header">
-        <div class="list">
+        <div class="list" ng-controller="CarerController">
             <a class="item item-thumbnail-left">
-                <img src="../img/Profile.jpg">
-                <h2>Scho</h2>
-                <p>Flat 14 Angel Court, Croydon</p>
-                <p>CR0 6AW</p>
+                <img src="img/AlanRutherford.jpg">
+                <h2>{{selectedPatient.PatientFName}} {{selectedPatient.PatientSName}}</h2>
+                <p>{{selectedPatient.PatientPostcode}}</p>
+                <p>{{selectedPatient.PatientEmail}}</p>
             </a>
         </div>
             <img src="../img/map.png" height="50%" width="80%" style="margin: auto; display: block;"/>

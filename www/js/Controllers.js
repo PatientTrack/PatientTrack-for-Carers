@@ -18,38 +18,57 @@ angular.module('starter.controllers', ['ionic'])
     .controller('ChangePasswordCtrl', function ($scope) {
     })
 
-    .controller('CarerController', function ($scope, $http) {
-        $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/1')
-            .success(function(data, status, headers,config){
-                console.log('data success');
-                console.log(data); // for browser console
-                $scope.carers = data; // for UI
-            })
-            .error(function(data, status, headers,config){
-                console.log('data error');
-            });
-    })
+    .controller('CarerController', function ($scope, $rootScope, $http, $window) {
+        $scope.getDetails = function (id) {
+            $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + id)
+                .success(function (data, status, headers, config) {
+                    console.log('data success');
+                    console.log(data); // for browser console
+                    $rootScope.carers = data; // for UI
+                    $window.location.href = '#/ViewPatients';
+                })
+                .error(function (data, status, headers, config) {
+                    console.log('data error');
+                });
+        };
 
-    .controller('PatientController', function ($scope, $http) {
-        $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/1')
-            .success(function(data, status, headers,config){
-                console.log('data success');
-                console.log(data); // for browser console
-                $scope.patients = data; // for UI
-            })
-            .error(function(data, status, headers,config){
-                console.log('data error');
-            })
-            .then(function(result){
-                things = carers.data;
-            });
-    })
-
-    .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout) {
-        $scope.go = function (path) {
-            $location.path(path);
+        $scope.viewPatient = function (index) {
+            $rootScope.selectedPatient = $rootScope.carers.Patients[index];
+            $window.location.href = '#/PatientDetails';
+            // $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/' + id)
+            //     .success(function (data, status, headers, config) {
+            //         console.log('data success');
+            //         console.log(data); // for browser console
+            //         $rootScope.selectedPatient = data; // for UI
+            //         $window.location.href = '#/PatientDetails';
+            //     })
+            //     .error(function (data, status, headers, config) {
+            //         console.log('data error');
+            //     });
         };
     })
+
+    //    Login functionality - not sure how to do this yet
+    // .controller('LoginCtrl', function ($scope, $http) {
+    //     $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/')
+    //         .success(function(data, status, headers,config){
+    //             console.log('data success');
+    //             console.log(data); // for browser console
+    //             $scope.carers = data; // for UI
+    //
+    //             angular.forEach($scope.carers,function(value,index){
+    //               if(value.CarerEmail == $scope.userEmail && value.CarerPwd == $scope.userPwd) {
+    //                   console.log('Found user');
+    //               }
+    //               else {
+    //                   console.log('User not found');
+    //               }
+    //             })
+    //         })
+    //         .error(function(data, status, headers,config){
+    //             console.log('data error');
+    //         });
+    // })
 
     .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout) {
 
