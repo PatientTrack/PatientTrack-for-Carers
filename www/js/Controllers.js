@@ -10,6 +10,7 @@ angular.module('starter.controllers', ['ionic'])
     })
 
     .controller('PatientDetailsCtrl', function ($scope) {
+
     })
 
     .controller('SettingsCtrl', function ($scope) {
@@ -18,7 +19,8 @@ angular.module('starter.controllers', ['ionic'])
     .controller('ChangePasswordCtrl', function ($scope) {
     })
 
-    .controller('CarerController', function ($scope, $rootScope, $http, $window) {
+
+    .controller('CarerController', function ($scope, $rootScope, $http, $window, $state, $cordovaGeolocation, $timeout) {
         $scope.getDetails = function (id) {
             $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + id)
                 .success(function (data, status, headers, config) {
@@ -32,47 +34,37 @@ angular.module('starter.controllers', ['ionic'])
                 });
         };
 
-        $scope.viewPatient = function (index) {
-            $rootScope.selectedPatient = $rootScope.carers.Patients[index];
-            $window.location.href = '#/PatientDetails';
-            // $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/' + id)
-            //     .success(function (data, status, headers, config) {
-            //         console.log('data success');
-            //         console.log(data); // for browser console
-            //         $rootScope.selectedPatient = data; // for UI
-            //         $window.location.href = '#/PatientDetails';
-            //     })
-            //     .error(function (data, status, headers, config) {
-            //         console.log('data error');
-            //     });
-        };
-    })
+        $scope.viewPatient = function (index, $timeout) {
+            $window.location.href = '#/PatientDetails'
+            angular.element(document).ready(function () {
+                $rootScope.selectedPatient = $rootScope.carers.Patients[index];
+                var lat = $rootScope.carers.Patients[index].Locations[$rootScope.carers.Patients[index].Locations.length - 1].Latitude;
+                var long = $rootScope.carers.Patients[index].Locations[$rootScope.carers.Patients[index].Locations.length - 1].Longitude;
+                console.log("Lat is " + lat + ", Long is " + long);
+                var latLng = new google.maps.LatLng(lat, long);
+                var mapOptions = {
+                    center: latLng,
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-    //    Login functionality - not sure how to do this yet
-    // .controller('LoginCtrl', function ($scope, $http) {
-    //     $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/')
-    //         .success(function(data, status, headers,config){
-    //             console.log('data success');
-    //             console.log(data); // for browser console
-    //             $scope.carers = data; // for UI
-    //
-    //             angular.forEach($scope.carers,function(value,index){
-    //               if(value.CarerEmail == $scope.userEmail && value.CarerPwd == $scope.userPwd) {
-    //                   console.log('Found user');
-    //               }
-    //               else {
-    //                   console.log('User not found');
-    //               }
-    //             })
-    //         })
-    //         .error(function(data, status, headers,config){
-    //             console.log('data error');
-    //         });
-    // })
+                // Wait until the map is loaded
+                google.maps.event.addListenerOnce($scope.map, 'idle', function () {
+
+                    var marker = new google.maps.Marker({
+                        map: $scope.map,
+                        animation: google.maps.Animation.DROP,
+                        position: latLng
+                    });
+                });
+            });
+        }
+    })
 
     .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout) {
 
-// Triggered on a button click, or some other target
+        // Triggered on a button click, or some other target
         $scope.showAddPopup = function () {
             $scope.data = {};
 
@@ -178,8 +170,6 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
     });
-
-;
 
 
 

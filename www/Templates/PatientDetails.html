@@ -14,7 +14,8 @@
                 <p>{{selectedPatient.PatientEmail}}</p>
             </a>
         </div>
-            <img src="../img/map.png" height="50%" width="80%" style="margin: auto; display: block;"/>
+        <p class="center">Time of location: {{selectedPatient.Locations[selectedPatient.Locations.length - 1].TimeLocated | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>
+        <div id="map" data-tap-disabled="true"></div>
         <br/>
         <a class="button button-block button-assertive" ng-click="showConfirmDeletePatient()">Delete Patient</a>
     </ion-content>

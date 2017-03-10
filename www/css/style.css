@@ -10,3 +10,14 @@
 .v-align-centre {
     transform: translateY(25%);
 }
+
+.scroll {
+    height: 100%;
+}
+
+#map {
+    width: 80%;
+    height: 50%;
+    margin: auto;
+    display: block;
+}
