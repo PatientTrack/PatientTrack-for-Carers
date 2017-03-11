@@ -12,15 +12,15 @@
         <div class="pad-top">
             <label class="item item-input item-floating-label">
                 <span class="input-label">Email Address</span>
-                <input type="text" placeholder="Email Address" ng-model="userEmail">
+                <input type="text" placeholder="Email Address" ng-model="loginEmail">
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Password</span>
-                <input type="password" placeholder="Password" ng-model="userPwd">
+                <input type="password" placeholder="Password" ng-model="loginPwd">
             </label>
         </div>
-        <div ng-controller="CarerController">
-            <a class="button button-balanced button-block" ng-click="getDetails(1)">Login</a>
+        <div>
+            <a class="button button-balanced button-block" ng-click="getDetails()">Login</a>
         </div>
     </ion-content>
 </ion-view>

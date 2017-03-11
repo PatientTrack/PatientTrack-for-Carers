@@ -6,7 +6,7 @@
            href="#/ViewPatients"></a>
     </div>
     <ion-content class="has-header">
-        <div class="list" ng-controller="CarerController">
+        <div class="list">
             <a class="item item-thumbnail-left">
                 <img src="img/AlanRutherford.jpg">
                 <h2>{{selectedPatient.PatientFName}} {{selectedPatient.PatientSName}}</h2>
@@ -14,7 +14,10 @@
                 <p>{{selectedPatient.PatientEmail}}</p>
             </a>
         </div>
-        <p class="center">Time of location: {{selectedPatient.Locations[selectedPatient.Locations.length - 1].TimeLocated | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>
+        <div class="centre">
+            <p>Time of location: {{selectedPatient.Locations[selectedPatient.Locations.length - 1].TimeLocated |
+                date:'dd/MM/yyyy HH:mm:ss'}}</p>
+        </div>
         <div id="map" data-tap-disabled="true"></div>
         <br/>
         <a class="button button-block button-assertive" ng-click="showConfirmDeletePatient()">Delete Patient</a>
