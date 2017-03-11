@@ -19,12 +19,12 @@ angular.module('starter.controllers', ['ionic'])
     .controller('RegisterCtrl', function ($scope, $http, $window) {
         $scope.registerCarer = function () {
             var data =
-            {
-                "Patients": [],
-                "CarerFName": this.regUsername,
-                "CarerEmail": this.regEmail,
-                "CarerPwd": this.regPwd
-            };
+                {
+                    "Patients": [],
+                    "CarerFName": this.regUsername,
+                    "CarerEmail": this.regEmail,
+                    "CarerPwd": this.regPwd
+                };
             $http.post('http://patienttrackapiv2.azurewebsites.net/api/Carers/', data)
                 .success(function (data, status, headers, config) {
                     console.log('Registered successfully');
@@ -93,8 +93,8 @@ angular.module('starter.controllers', ['ionic'])
 
     .controller('ChangePasswordCtrl', function ($scope, $rootScope, $http) {
         $scope.updatePwd = function () {
-            if(this.currentPwd == $rootScope.carers.CarerPwd) {
-                if(this.newPwd1 == this.newPwd2) {
+            if (this.currentPwd == $rootScope.carers.CarerPwd) {
+                if (this.newPwd1 == this.newPwd2) {
                     var data =
                         {
                             "CarerID": $rootScope.carers.CarerID,
@@ -126,14 +126,10 @@ angular.module('starter.controllers', ['ionic'])
 
     .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout, $rootScope, $http, $window) {
 
-        // Triggered on a button click, or some other target
         $scope.showAddPopup = function () {
-            $scope.data = {};
-
             // Popup for adding a new patient
             var myPopup = $ionicPopup.show({
-                /* add 'ng-model="data.patient"' to the template once data type created */
-                template: '<input type="text">',
+                template: '<input type="text" ng-model="patientCode">',
                 title: 'Enter Patient Code',
                 subTitle: 'This is found in the patient\'s app',
                 scope: $scope,
@@ -145,28 +141,28 @@ angular.module('starter.controllers', ['ionic'])
                     {
                         text: '<b>Add</b>',
                         type: 'button-balanced',
-                        // onTap: function (e) {
-                        //     if (!$scope.data.patient) {
-                        //         //don't allow the user to close unless he enters patient's code
-                        //         e.preventDefault();
-                        //     } else {
-                        //         return $scope.data.patient;
-                        //     }
-                        // }
-                    }
-                ]
+                        onTap: function () {
+                            $http.put('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID + '/AddPatient/' + this.scope.patientCode)
+                                .success(function (data, status, headers, config) {
+                                    console.log('Added patient successfully');
+                                    $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID)
+                                        .success(function (data, status, headers, config) {
+                                            console.log('data success');
+                                            console.log(data); // for browser console
+                                            $rootScope.carers = data; // for UI
+                                        });
+                                    $scope.showAddPatient();
+                                })
+                                .error(function (data, status, headers, config) {
+                                    console.log('Error updating username');
+                                    $scope.showAddPatientError();
+                                });
+                        }
+                    }]
             });
-
-            myPopup.then(function (res) {
-                console.log('Tapped!', res);
-            });
-
-            $timeout(function () {
-                myPopup.close(); //close the popup after 10 seconds to avoid accidents
-            }, 10000);
         };
 
-        // A confirm dialog for deleting a patient
+// A confirm dialog for deleting a patient
         $scope.showConfirmDeletePatient = function () {
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Delete Patient',
@@ -175,9 +171,24 @@ angular.module('starter.controllers', ['ionic'])
 
             confirmPopup.then(function (res) {
                 if (res) {
-                    console.log('Confirmed');
+                    console.log('Deleting patient');
+                    $http.delete('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID + '/DeletePatient/' + $rootScope.selectedPatient.PatientID)
+                        .success(function (data, status, headers, config) {
+                            console.log('Deleted patient successfully');
+                            $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID)
+                                .success(function (data, status, headers, config) {
+                                    console.log('data success');
+                                    console.log(data); // for browser console
+                                    $rootScope.carers = data; // for UI
+                                });
+                            $window.location.href = '#/ViewPatients';
+                            $scope.showDeletePatient();
+                        })
+                        .error(function (data, status, headers, config) {
+                            $scope.showDeletePatientError();
+                        });
                 } else {
-                    console.log('Cancelled');
+                    console.log('Patient deletion cancelled');
                 }
             });
 
@@ -186,7 +197,7 @@ angular.module('starter.controllers', ['ionic'])
             }, 10000);
         };
 
-        // A confirm dialog for deleting a patient
+// A confirm dialog for deleting a patient
         $scope.showConfirmDeleteAccount = function () {
             var confirmPopup = $ionicPopup.show({
                 template: '<input type="password" ng-model="userPwd">',
@@ -201,9 +212,9 @@ angular.module('starter.controllers', ['ionic'])
                     {
                         text: '<b>Delete</b>',
                         type: 'button-assertive',
-                        onTap: function (e) {
-                        // delete carer
-                            if(this.scope.userPwd == $rootScope.carers.CarerPwd) {
+                        onTap: function () {
+                            // delete carer
+                            if (this.scope.userPwd == $rootScope.carers.CarerPwd) {
                                 $http.delete('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID)
                                     .success(function (data, status, headers, config) {
                                         console.log('Deleted account successfully');
@@ -213,6 +224,10 @@ angular.module('starter.controllers', ['ionic'])
                                     })
                                     .error(function (data, status, headers, config) {
                                         console.log('Error updating password');
+                                        console.log('Data: ' + JSON.stringify(data));
+                                        console.log('Status: ' + JSON.stringify(status));
+                                        console.log('headers: ' + JSON.stringify(headers));
+                                        console.log('Config: ' + JSON.stringify(config));
                                         $scope.showDeleteError();
                                     });
                             }
@@ -224,20 +239,12 @@ angular.module('starter.controllers', ['ionic'])
                 ]
             });
 
-            confirmPopup.then(function (res) {
-                if (res) {
-                    console.log('Confirmed');
-                } else {
-                    console.log('Cancelled');
-                }
-            });
-
             $timeout(function () {
                 confirmPopup.close(); //close the popup after 10 seconds to avoid accidents
             }, 10000);
         };
 
-        // An alert dialog for username change
+// An alert dialog for username change
         $scope.showChangeNameAlert = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Username Changed'
@@ -248,7 +255,7 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for username change
+// An alert dialog for username change
         $scope.showChangeNameError = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Username could not be changed'
@@ -259,7 +266,7 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for login failure
+// An alert dialog for login failure
         $scope.showLoginFail = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Details not found',
@@ -271,14 +278,14 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for registration failure
+// An alert dialog for registration failure
         $scope.showRegFail = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Registration error',
                 subTitle: 'Possible causes:' +
-                '\n\u2022 Account already exists' +
-                '\n\u2022 Invalid email' +
-                '\n\u2022 Server issue'
+                '<br>\u2022 Account already exists' +
+                '<br>\u2022 Invalid email' +
+                '<br>\u2022 Server issue'
             });
 
             alertPopup.then(function (res) {
@@ -286,7 +293,7 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for registration success
+// An alert dialog for registration success
         $scope.showRegSuccess = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Registration success!',
@@ -294,7 +301,7 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for mismatching new password entries
+// An alert dialog for mismatching new password entries
         $scope.showPwdMismatch = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'New password entries do not match',
@@ -302,14 +309,14 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for password change success
+// An alert dialog for password change success
         $scope.showPwdChange = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Password changed'
             });
         };
 
-        // An alert dialog for misc password change error
+// An alert dialog for misc password change error
         $scope.showPwdError = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Could not change password',
@@ -317,14 +324,14 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for incorrect 'current password'
+// An alert dialog for incorrect 'current password'
         $scope.showOldPwdError = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Current password incorrect'
             });
         };
 
-        // An alert dialog for incorrect password on delete account
+// An alert dialog for incorrect password on delete account
         $scope.showDeletePwdError = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Password incorrect',
@@ -332,7 +339,7 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for misc delete account error
+// An alert dialog for misc delete account error
         $scope.showDeleteError = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Account could not be deleted',
@@ -340,10 +347,45 @@ angular.module('starter.controllers', ['ionic'])
             });
         };
 
-        // An alert dialog for delete account success
+// An alert dialog for delete account success
         $scope.showDelete = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Account deleted'
+            });
+        };
+
+// An alert dialog for add patient success
+        $scope.showAddPatient = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Patient added'
+            });
+        };
+
+// An alert dialog for add patient error
+        $scope.showAddPatientError = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Patient could not be added'
+            });
+        };
+
+// An alert dialog for add patient error
+        $scope.showPatientNotFound = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Patient not found'
+            });
+        };
+
+        // An alert dialog for add patient error
+        $scope.showDeletePatient = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Patient removed'
+            });
+        };
+
+        // An alert dialog for add patient error
+        $scope.showDeletePatientError = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Patient could not be removed'
             });
         };
     });
