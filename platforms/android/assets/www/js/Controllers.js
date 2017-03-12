@@ -7,7 +7,6 @@ angular.module('starter.controllers', ['ionic'])
                     console.log('data success');
                     console.log(data); // for browser console
                     $rootScope.carers = data; // for UI
-                    $scope.loginForm.setPristine();
                     $window.location.href = '#/ViewPatients';
                 })
                 .error(function (data, status, headers, config) {

@@ -8,15 +8,15 @@
     <ion-content class="has-header">
         <div class="list">
             <a class="item item-thumbnail-left">
-                <img src="img/AlanRutherford.jpg">
+                <img src="img/userIcon.png">
                 <h2>{{selectedPatient.PatientFName}}</h2>
                 <p>{{selectedPatient.PatientPostcode}}</p>
                 <p>{{selectedPatient.PatientEmail}}</p>
             </a>
         </div>
         <div class="centre">
-            <p>Time of location: {{selectedPatient.Locations[selectedPatient.Locations.length - 1].TimeLocated |
-                date:'dd/MM/yyyy HH:mm:ss'}}</p>
+            <p>Last located: {{selectedPatient.Locations[selectedPatient.Locations.length - 1].TimeLocated |
+                date:'HH:mm:ss dd/MM/yyyy'}}</p>
         </div>
         <div id="map" data-tap-disabled="true"></div>
         <br/>
