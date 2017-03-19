@@ -15,7 +15,7 @@ angular.module('starter.controllers', ['ionic'])
         };
     })
 
-    .controller('RegisterCtrl', function ($scope, $http, $window) {
+    .controller('RegisterCtrl', function ($scope, $http) {
         $scope.registerCarer = function () {
             var data =
                 {
@@ -35,31 +35,39 @@ angular.module('starter.controllers', ['ionic'])
         };
     })
 
-    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window, $cordovaGeolocation) {
+    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window) {
         $scope.viewPatient = function (index) {
             $window.location.href = '#/PatientDetails'
             angular.element(document).ready(function () {
-                $rootScope.selectedPatient = $rootScope.carers.Patients[index];
-                var lat = $rootScope.carers.Patients[index].Locations[$rootScope.carers.Patients[index].Locations.length - 1].Latitude;
-                var long = $rootScope.carers.Patients[index].Locations[$rootScope.carers.Patients[index].Locations.length - 1].Longitude;
-                console.log("Lat is " + lat + ", Long is " + long);
-                var latLng = new google.maps.LatLng(lat, long);
-                var mapOptions = {
-                    center: latLng,
-                    zoom: 15,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/' + $rootScope.carers.Patients[index].PatientID)
+                    .success(function (data, status, headers, config) {
+                        console.log('data success');
+                        console.log(data); // for browser console
+                        $rootScope.selectedPatient = data; // for UI
+                        var lat = data.Locations[data.Locations.length - 1].Latitude;
+                        var long = data.Locations[data.Locations.length - 1].Longitude;
+                        console.log("Lat is " + lat + ", Long is " + long);
+                        var latLng = new google.maps.LatLng(lat, long);
+                        var mapOptions = {
+                            center: latLng,
+                            zoom: 15,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-                // Wait until the map is loaded
-                google.maps.event.addListenerOnce($scope.map, 'idle', function () {
+                        // Wait until the map is loaded
+                        google.maps.event.addListenerOnce($scope.map, 'idle', function () {
 
-                    var marker = new google.maps.Marker({
-                        map: $scope.map,
-                        animation: google.maps.Animation.DROP,
-                        position: latLng
+                            var marker = new google.maps.Marker({
+                                map: $scope.map,
+                                animation: google.maps.Animation.DROP,
+                                position: latLng
+                            });
+                        });
+                    })
+                    .error(function (data, status, headers, config) {
+                        $scope.showViewPatientError();
                     });
-                });
             });
         }
     })
@@ -385,6 +393,13 @@ angular.module('starter.controllers', ['ionic'])
         $scope.showDeletePatientError = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Patient could not be removed'
+            });
+        };
+
+        // An alert dialog for add patient error
+        $scope.showViewPatientError = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Patient details could not be loaded'
             });
         };
     });
