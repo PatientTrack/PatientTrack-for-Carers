@@ -161,7 +161,7 @@ angular.module('starter.controllers', ['ionic'])
                                     $scope.showAddPatient();
                                 })
                                 .error(function (data, status, headers, config) {
-                                    console.log('Error updating username');
+                                    console.log('Error adding patient');
                                     $scope.showAddPatientError();
                                 });
                         }

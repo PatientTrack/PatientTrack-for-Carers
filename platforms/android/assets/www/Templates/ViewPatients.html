@@ -8,7 +8,7 @@
     <ion-content class="has-header has-footer">
         <h1 class="centre pad-top">Welcome, {{carers.CarerFName}}!</h1>
         <div class="list pad-top">
-            <div class="item item-button-right item-avatar" ng-repeat="patient in carers.Patients">
+            <div class="item item-button-right item-avatar" ng-repeat="patient in carers.Patients" ng-click="viewPatient($index)">
                 <img src="img/userIcon.png">
                 <h2>{{patient.PatientFName}}</h2>
                 <p>{{patient.PatientPostcode}}</p>
