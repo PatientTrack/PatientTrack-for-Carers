@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.ionicframework.patienttrackforcarers310869;
+package com.schosystems.patienttrackforcarers;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

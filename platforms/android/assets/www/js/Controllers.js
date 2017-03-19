@@ -35,7 +35,7 @@ angular.module('starter.controllers', ['ionic'])
         };
     })
 
-    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window) {
+    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window, $cordovaGeolocation) {
         $scope.viewPatient = function (index) {
             $window.location.href = '#/PatientDetails'
             angular.element(document).ready(function () {
@@ -62,6 +62,32 @@ angular.module('starter.controllers', ['ionic'])
                 });
             });
         }
+
+        $scope.uploadLocation = function () {
+            var options = {timeout: 10000, enableHighAccuracy: true};
+            $cordovaGeolocation.getCurrentPosition(options).then(function (position) {
+                console.log("Found user at location '" + position.coords.latitude + "," + position.coords.longitude + "', pushing to DB");
+                // POST request body
+                var locationData =
+                    {
+                        "Latitude": position.coords.latitude,
+                        "Longitude": position.coords.longitude
+                    };
+
+                $http.post('http://patienttrackapiv2.azurewebsites.net/api/Patients/AddLocation/17', locationData)
+                    .success(function () {
+                        console.log('Updated location');
+                    })
+                    .error(function (error) {
+                        console.log('Error updating location');
+                        console.log("Error: " + error);
+                    });
+
+            }, function (error) {
+                console.log("Could not get interval location");
+                console.log(error);
+            });
+        };
     })
 
     .controller('PatientDetailsCtrl', function ($scope) {

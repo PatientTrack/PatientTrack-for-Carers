@@ -35,7 +35,7 @@ angular.module('starter.controllers', ['ionic'])
         };
     })
 
-    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window) {
+    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window, $cordovaGeolocation) {
         $scope.viewPatient = function (index) {
             $window.location.href = '#/PatientDetails'
             angular.element(document).ready(function () {

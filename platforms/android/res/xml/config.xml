@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.patienttrackforcarers310869" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.schosystems.patienttrackforcarers" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
@@ -32,10 +32,10 @@
     <splash density="port-xxxhdpi" src="resources\android\splash\drawable-port-xxxhdpi-screen.png" />
     <name>PatientTrackForCarers</name>
     <description>
-        An Ionic Framework and Cordova project.
+        Used with partner app PatientTrack, allows carers to track their patients location.
     </description>
-    <author email="you@example.com" href="http://example.com/">
-      Your Name Here
+    <author email="joeschofield@live.co.uk">
+    Joe Schofield
     </author>
     <content src="index.html" />
     <access origin="*" />

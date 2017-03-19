@@ -2,10 +2,10 @@
 <widget id="com.schosystems.patienttrackforcarers" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>PatientTrackForCarers</name>
   <description>&#xD;
-        An Ionic Framework and Cordova project.&#xD;
+        Used with partner app PatientTrack, allows carers to track their patients location.
     </description>
-  <author email="you@example.com" href="http://example.com/">&#xD;
-      Your Name Here&#xD;
+  <author email="joeschofield@live.co.uk">
+    Joe Schofield
     </author>
   <content src="index.html"/>
   <access origin="*"/>
