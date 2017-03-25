@@ -84,6 +84,37 @@ angular.module('starter.controllers', ['ionic'])
     .controller('PatientDetailsCtrl', function ($scope) {
     })
 
+    .controller('PatientSettingsCtrl', function ($scope, $ionicLoading, $http, $rootScope) {
+        $scope.updatePatientAddress = function () {
+            $ionicLoading.show();
+            // PUT Request body - contains new Address
+            var data =
+                {
+                    "Locations": $rootScope.selectedPatient.Locations,
+                    "Carers": $rootScope.selectedPatient.Carers,
+                    "PatientID": $rootScope.selectedPatient.PatientID,
+                    "PatientFName": $rootScope.selectedPatient.PatientFName,
+                    "PatientEmail": $rootScope.selectedPatient.PatientEmail,
+                    "PatientPwd": $rootScope.selectedPatient.PatientPwd,
+                    "PatientPostcode": this.updatedAddress,
+                    "PatientCode": $rootScope.selectedPatient.PatientCode
+                };
+
+            $http.put('http://patienttrackapiv2.azurewebsites.net/api/Patients/' + $rootScope.selectedPatient.PatientID, data)
+                .success(function (data) {
+                    $ionicLoading.hide();
+                    console.log('Updated Address successfully');
+                    $rootScope.selectedPatient = data;
+                    $scope.showChangeAddressAlert();
+                })
+                .error(function () {
+                    $ionicLoading.hide();
+                    console.log('Error updating Address');
+                    $scope.showChangeAddressError();
+                });
+        };
+    })
+
     .controller('SettingsCtrl', function ($scope, $rootScope, $http, $ionicLoading) {
         $scope.updateUsername = function () {
             $ionicLoading.show();
@@ -151,7 +182,7 @@ angular.module('starter.controllers', ['ionic'])
         $scope.showAddPopup = function () {
             // Popup for adding a new patient
             var myPopup = $ionicPopup.show({
-                template: '<input type="text" ng-model="patientCode">',
+                template: '<input type="text" ng-model="patientCode" autocapitalize="none">',
                 title: 'Enter Patient Code',
                 subTitle: 'This is found in the patient\'s app',
                 scope: $scope,
@@ -273,6 +304,20 @@ angular.module('starter.controllers', ['ionic'])
             $timeout(function () {
                 confirmPopup.close(); //close the popup after 10 seconds to avoid accidents
             }, 10000);
+        };
+
+        // An alert dialog for Address change
+        $scope.showChangeAddressAlert = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.selectedPatient.PatientFName + '\'s address changed'
+            });
+        };
+
+// An alert dialog for Address change
+        $scope.showChangeAddressError = function () {
+            var alertPopup = $ionicPopup.alert({
+                title: $rootScope.selectedPatient.PatientFName + '\'s address could not be changed'
+            });
         };
 
 // An alert dialog for username change

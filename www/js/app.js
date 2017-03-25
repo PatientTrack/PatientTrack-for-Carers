@@ -81,6 +81,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
                 url: '/ViewPatients',
                 templateUrl: 'Templates/ViewPatients.html',
                 controller: 'ViewPatientsCtrl'
+            })
+
+            .state('patientSettings', {
+                url: '/PatientSettings',
+                templateUrl: 'Templates/PatientSettings.html',
+                controller: 'PatientSettingsCtrl'
             });
 
         // if none of the above states are matched, use this as the fallback
