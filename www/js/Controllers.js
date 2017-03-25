@@ -314,6 +314,8 @@ angular.module('starter.controllers', ['ionic'])
                                         console.log('Deleted account successfully');
                                         $rootScope.carers = null;
                                         $window.location.href = '#/Register';
+                                        $window.localStorage.removeItem("pt4cLoginEmail");
+                                        $window.localStorage.removeItem("pt4cLoginPwd");
                                         $ionicLoading.hide();
                                         $scope.showDelete();
                                     })

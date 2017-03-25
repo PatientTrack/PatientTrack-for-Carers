@@ -10,8 +10,8 @@ angular.module('starter.controllers', ['ionic'])
                     console.log(data); // for browser console
                     $rootScope.carers = data; // for UI
                     $window.location.href = '#/ViewPatients';
-                    $window.localStorage.setItem('ptLoginEmail', $rootScope.carers.CarerEmail);
-                    $window.localStorage.setItem('ptLoginPwd', $rootScope.carers.CarerPwd);
+                    $window.localStorage.setItem('pt4cLoginEmail', $rootScope.carers.CarerEmail);
+                    $window.localStorage.setItem('pt4cLoginPwd', $rootScope.carers.CarerPwd);
                 })
                 .error(function (data, status, headers, config) {
                     $ionicLoading.hide();
@@ -23,8 +23,8 @@ angular.module('starter.controllers', ['ionic'])
     .controller('RegisterCtrl', function ($scope, $http, $ionicLoading, $window, $rootScope) {
 
         // Check if user has stored login details
-        var email = $window.localStorage.getItem('ptLoginEmail');
-        var pwd = $window.localStorage.getItem('ptLoginPwd');
+        var email = $window.localStorage.getItem('pt4cLoginEmail');
+        var pwd = $window.localStorage.getItem('pt4cLoginPwd');
         if (email != undefined && pwd != undefined) {
             console.log('Logging in from localstorage');
             $ionicLoading.show();
@@ -166,8 +166,8 @@ angular.module('starter.controllers', ['ionic'])
 
         $scope.signOut = function () {
             $ionicLoading.show();
-            $window.localStorage.removeItem("ptLoginEmail");
-            $window.localStorage.removeItem("ptLoginPwd");
+            $window.localStorage.removeItem("pt4cLoginEmail");
+            $window.localStorage.removeItem("pt4cLoginPwd");
             $window.location.href = '#/tab/Login';
             $ionicLoading.hide();
         }
@@ -188,9 +188,11 @@ angular.module('starter.controllers', ['ionic'])
                         };
                     $http.put('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID, data)
                         .success(function (data, status, headers, config) {
-                            $ionicLoading.hide();
                             console.log('Updated password successfully');
                             $rootScope.carers = data;
+                            $window.localStorage.removeItem("pt4cLoginPwd");
+                            $window.localStorage.setItem('pt4cLoginPwd', $rootScope.carers.CarerPwd);
+                            $ionicLoading.hide();
                             $scope.showPwdChange();
                         })
                         .error(function (data, status, headers, config) {
@@ -312,6 +314,8 @@ angular.module('starter.controllers', ['ionic'])
                                         console.log('Deleted account successfully');
                                         $rootScope.carers = null;
                                         $window.location.href = '#/Register';
+                                        $window.localStorage.removeItem("pt4cLoginEmail");
+                                        $window.localStorage.removeItem("pt4cLoginPwd");
                                         $ionicLoading.hide();
                                         $scope.showDelete();
                                     })
