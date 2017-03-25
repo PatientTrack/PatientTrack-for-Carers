@@ -1,22 +1,26 @@
 angular.module('starter.controllers', ['ionic'])
 
-    .controller('LoginCtrl', function ($scope, $http, $rootScope, $window) {
+    .controller('LoginCtrl', function ($scope, $http, $rootScope, $window, $ionicLoading) {
         $scope.getDetails = function () {
+            $ionicLoading.show();
             $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + this.loginEmail + '/' + this.loginPwd)
                 .success(function (data, status, headers, config) {
+                    $ionicLoading.hide();
                     console.log('data success');
                     console.log(data); // for browser console
                     $rootScope.carers = data; // for UI
                     $window.location.href = '#/ViewPatients';
                 })
                 .error(function (data, status, headers, config) {
+                    $ionicLoading.hide();
                     $scope.showLoginFail();
                 });
         };
     })
 
-    .controller('RegisterCtrl', function ($scope, $http) {
+    .controller('RegisterCtrl', function ($scope, $http, $ionicLoading) {
         $scope.registerCarer = function () {
+            $ionicLoading.show();
             var data =
                 {
                     "Patients": [],
@@ -26,21 +30,25 @@ angular.module('starter.controllers', ['ionic'])
                 };
             $http.post('http://patienttrackapiv2.azurewebsites.net/api/Carers/', data)
                 .success(function (data, status, headers, config) {
+                    $ionicLoading.hide();
                     console.log('Registered successfully');
                     $scope.showRegSuccess();
                 })
                 .error(function (data, status, headers, config) {
+                    $ionicLoading.hide();
                     $scope.showRegFail();
                 });
         };
     })
 
-    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window) {
+    .controller('ViewPatientsCtrl', function ($scope, $http, $rootScope, $window, $ionicLoading) {
         $scope.viewPatient = function (index) {
+            $ionicLoading.show();
             $window.location.href = '#/PatientDetails'
             angular.element(document).ready(function () {
                 $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/' + $rootScope.carers.Patients[index].PatientID)
                     .success(function (data, status, headers, config) {
+                        $ionicLoading.hide();
                         console.log('data success');
                         console.log(data); // for browser console
                         $rootScope.selectedPatient = data; // for UI
@@ -66,6 +74,7 @@ angular.module('starter.controllers', ['ionic'])
                         });
                     })
                     .error(function (data, status, headers, config) {
+                        $ionicLoading.hide();
                         $scope.showViewPatientError();
                     });
             });
@@ -75,8 +84,9 @@ angular.module('starter.controllers', ['ionic'])
     .controller('PatientDetailsCtrl', function ($scope) {
     })
 
-    .controller('SettingsCtrl', function ($scope, $rootScope, $http) {
+    .controller('SettingsCtrl', function ($scope, $rootScope, $http, $ionicLoading) {
         $scope.updateUsername = function () {
+            $ionicLoading.show();
             var data =
                 {
                     "CarerID": $rootScope.carers.CarerID,
@@ -87,21 +97,24 @@ angular.module('starter.controllers', ['ionic'])
                 };
             $http.put('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID, data)
                 .success(function (data, status, headers, config) {
+                    $ionicLoading.hide();
                     console.log('Updated username successfully');
                     $rootScope.carers = data;
                     $scope.showChangeNameAlert();
                 })
                 .error(function (data, status, headers, config) {
+                    $ionicLoading.hide();
                     console.log('Error updating username');
                     $scope.showChangeNameError();
                 });
         };
     })
 
-    .controller('ChangePasswordCtrl', function ($scope, $rootScope, $http) {
+    .controller('ChangePasswordCtrl', function ($scope, $rootScope, $http, $ionicLoading) {
         $scope.updatePwd = function () {
             if (this.currentPwd == $rootScope.carers.CarerPwd) {
                 if (this.newPwd1 == this.newPwd2) {
+                    $ionicLoading.show();
                     var data =
                         {
                             "CarerID": $rootScope.carers.CarerID,
@@ -112,11 +125,13 @@ angular.module('starter.controllers', ['ionic'])
                         };
                     $http.put('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID, data)
                         .success(function (data, status, headers, config) {
+                            $ionicLoading.hide();
                             console.log('Updated password successfully');
                             $rootScope.carers = data;
                             $scope.showPwdChange();
                         })
                         .error(function (data, status, headers, config) {
+                            $ionicLoading.hide();
                             console.log('Error updating password');
                             $scope.showPwdError();
                         });
@@ -131,7 +146,7 @@ angular.module('starter.controllers', ['ionic'])
         };
     })
 
-    .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout, $rootScope, $http, $window) {
+    .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout, $rootScope, $http, $window, $ionicLoading) {
 
         $scope.showAddPopup = function () {
             // Popup for adding a new patient
@@ -149,18 +164,21 @@ angular.module('starter.controllers', ['ionic'])
                         text: '<b>Add</b>',
                         type: 'button-balanced',
                         onTap: function () {
+                            $ionicLoading.show();
                             $http.put('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID + '/AddPatient/' + this.scope.patientCode)
-                                .success(function (data, status, headers, config) {
+                                .success(function (data) {
                                     console.log('Added patient successfully');
                                     $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID)
-                                        .success(function (data, status, headers, config) {
+                                        .success(function (data) {
                                             console.log('data success');
                                             console.log(data); // for browser console
                                             $rootScope.carers = data; // for UI
                                         });
+                                    $ionicLoading.hide();
                                     $scope.showAddPatient();
                                 })
-                                .error(function (data, status, headers, config) {
+                                .error(function () {
+                                    $ionicLoading.hide();
                                     console.log('Error adding patient');
                                     $scope.showAddPatientError();
                                 });
@@ -178,6 +196,7 @@ angular.module('starter.controllers', ['ionic'])
 
             confirmPopup.then(function (res) {
                 if (res) {
+                    $ionicLoading.show();
                     console.log('Deleting patient');
                     $http.delete('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID + '/DeletePatient/' + $rootScope.selectedPatient.PatientID)
                         .success(function (data, status, headers, config) {
@@ -189,9 +208,11 @@ angular.module('starter.controllers', ['ionic'])
                                     $rootScope.carers = data; // for UI
                                 });
                             $window.location.href = '#/ViewPatients';
+                            $ionicLoading.hide();
                             $scope.showDeletePatient();
                         })
                         .error(function (data, status, headers, config) {
+                            $ionicLoading.hide();
                             $scope.showDeletePatientError();
                         });
                 } else {
@@ -222,14 +243,17 @@ angular.module('starter.controllers', ['ionic'])
                         onTap: function () {
                             // delete carer
                             if (this.scope.userPwd == $rootScope.carers.CarerPwd) {
+                                $ionicLoading.show();
                                 $http.delete('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID)
-                                    .success(function (data, status, headers, config) {
+                                    .success(function () {
                                         console.log('Deleted account successfully');
                                         $rootScope.carers = null;
                                         $window.location.href = '#/Register';
+                                        $ionicLoading.hide();
                                         $scope.showDelete();
                                     })
                                     .error(function (data, status, headers, config) {
+                                        $ionicLoading.hide();
                                         console.log('Error updating password');
                                         console.log('Data: ' + JSON.stringify(data));
                                         console.log('Status: ' + JSON.stringify(status));
@@ -256,20 +280,12 @@ angular.module('starter.controllers', ['ionic'])
             var alertPopup = $ionicPopup.alert({
                 title: 'Username Changed'
             });
-
-            alertPopup.then(function (res) {
-                console.log('Username changed');
-            });
         };
 
 // An alert dialog for username change
         $scope.showChangeNameError = function () {
             var alertPopup = $ionicPopup.alert({
                 title: 'Username could not be changed'
-            });
-
-            alertPopup.then(function (res) {
-                console.log('Username not changed');
             });
         };
 
@@ -278,10 +294,6 @@ angular.module('starter.controllers', ['ionic'])
             var alertPopup = $ionicPopup.alert({
                 title: 'Details not found',
                 subTitle: 'Please check your credentials'
-            });
-
-            alertPopup.then(function (res) {
-                console.log('Login attempt failed');
             });
         };
 
@@ -293,10 +305,6 @@ angular.module('starter.controllers', ['ionic'])
                 '<br>\u2022 Account already exists' +
                 '<br>\u2022 Invalid email' +
                 '<br>\u2022 Server issue'
-            });
-
-            alertPopup.then(function (res) {
-                console.log('Registration attempt failed');
             });
         };
 
