@@ -1,6 +1,6 @@
 {
   "name": "patienttrackforcarers",
-  "version": "0.0.2",
+  "version": "1.1.2",
   "description": "PatientTrack For Carers - Making sure that your patient or loved one is safe.",
   "dependencies": {
     "gulp": "^3.5.6",
