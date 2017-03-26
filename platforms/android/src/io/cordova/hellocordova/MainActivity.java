@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.schosystems.patienttrackforcarers;
+package io.cordova.hellocordova;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

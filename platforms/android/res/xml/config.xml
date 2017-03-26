@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.schosystems.patienttrackforcarers" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <preference name="loglevel" value="DEBUG" />
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
         <param name="onload" value="true" />
@@ -12,6 +11,17 @@
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <name>PatientTrackForCarers</name>
+    <description>
+        Used with partner app PatientTrack, allows carers to track their patients location.
+    </description>
+    <author email="joeschofield@live.co.uk">
+    Joe Schofield
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-navigation href="http://*/*" />
+    <icon src="resources\android\icon\drawable-xhdpi-icon.png" />
     <icon density="ldpi" src="resources\android\icon\drawable-ldpi-icon.png" />
     <icon density="mdpi" src="resources\android\icon\drawable-mdpi-icon.png" />
     <icon density="hdpi" src="resources\android\icon\drawable-hdpi-icon.png" />
@@ -30,15 +40,7 @@
     <splash density="port-xhdpi" src="resources\android\splash\drawable-port-xhdpi-screen.png" />
     <splash density="port-xxhdpi" src="resources\android\splash\drawable-port-xxhdpi-screen.png" />
     <splash density="port-xxxhdpi" src="resources\android\splash\drawable-port-xxxhdpi-screen.png" />
-    <name>PatientTrackForCarers</name>
-    <description>
-        Used with partner app PatientTrack, allows carers to track their patients location.
-    </description>
-    <author email="joeschofield@live.co.uk">
-    Joe Schofield
-    </author>
-    <content src="index.html" />
-    <access origin="*" />
+    <preference name="loglevel" value="DEBUG" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
@@ -47,6 +49,4 @@
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="2500" />
-    <allow-navigation href="http://*/*" />
-    <icon src="resources\android\icon\drawable-xhdpi-icon.png" />
 </widget>
