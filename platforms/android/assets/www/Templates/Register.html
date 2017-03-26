@@ -2,6 +2,7 @@
     <div class="bar bar-header bar-calm">
         <img src="img/Logo_square.png" height="100%">
         <h1 class="title">PatientTrack for Carers</h1>
+        <a class="button button-icon icon ion-help-circled v-align" href="#/Help"></a>
     </div>
     <ion-content class="has-header">
         <div class="centre pad-top">
@@ -23,6 +24,9 @@
                 <input type="password" placeholder="Password" ng-model="regPwd">
             </label>
         </div>
-        <a class="button button-balanced button-block" ng-click="registerCarer()">Register</a>
+        <div>
+            <a class="button button-clear button-balanced button block" href="#/PrivacyPolicy">View our Privacy Policy</a>
+            <a class="button button-balanced button-block" ng-click="registerCarer()">Register</a>
+        </div>
     </ion-content>
 </ion-view>

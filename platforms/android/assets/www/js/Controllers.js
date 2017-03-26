@@ -108,6 +108,12 @@ angular.module('starter.controllers', ['ionic'])
     .controller('PatientDetailsCtrl', function ($scope) {
     })
 
+    .controller('PrivacyPolicyCtrl', function ($scope) {
+    })
+
+    .controller('HelpCtrl', function ($scope) {
+    })
+
     .controller('PatientSettingsCtrl', function ($scope, $ionicLoading, $http, $rootScope) {
         $scope.updatePatientAddress = function () {
             $ionicLoading.show();
@@ -211,7 +217,11 @@ angular.module('starter.controllers', ['ionic'])
         };
     })
 
-    .controller('PopupCtrl', function ($scope, $ionicPopup, $timeout, $rootScope, $http, $window, $ionicLoading) {
+    .controller('PopupCtrl', function ($ionicHistory, $scope, $ionicPopup, $timeout, $rootScope, $http, $window, $ionicLoading) {
+
+        $scope.goBack = function() {
+            $ionicHistory.backView().go();
+        };
 
         $scope.showAddPopup = function () {
             // Popup for adding a new patient

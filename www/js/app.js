@@ -83,6 +83,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
                 controller: 'ViewPatientsCtrl'
             })
 
+            .state('privacyPolicy', {
+                url: '/PrivacyPolicy',
+                templateUrl: 'Templates/PrivacyPolicy.html',
+                controller: 'PrivacyPolicyCtrl'
+            })
+
+            .state('help', {
+                url: '/Help',
+                templateUrl: 'Templates/Help.html',
+                controller: 'HelpCtrl'
+            })
+
             .state('patientSettings', {
                 url: '/PatientSettings',
                 templateUrl: 'Templates/PatientSettings.html',
