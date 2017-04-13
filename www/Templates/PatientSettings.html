@@ -14,11 +14,13 @@
                 <p>{{selectedPatient.PatientEmail}}</p>
             </a>
         </div>
-        <label class="item item-input item-floating-label">
-            <span class="input-label">Update Patient's Address</span>
-            <input type="text" placeholder="Update Patient's Address" ng-model="updatedAddress">
-        </label>
-        <a class="button button-block button-balanced" ng-click="updatePatientAddress()">Save</a>
+        <form name="patientDetailForm">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Update Patient's Address</span>
+                <input type="text" placeholder="Update Patient's Address" ng-model="updatedAddress" required>
+            </label>
+        </form>
+        <a class="button button-block button-balanced" ng-click="updatePatientAddress()" ng-disabled="patientDetailForm.$invalid">Save</a>
         <a class="button button-block button-assertive" ng-click="showConfirmDeletePatient()">Delete Patient</a>
     </ion-content>
 </ion-view>

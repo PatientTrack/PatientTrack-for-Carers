@@ -11,22 +11,25 @@
             <br/>
         </div>
         <div class="pad-top">
-            <label class="item item-input item-floating-label">
-                <span class="input-label">Username</span>
-                <input type="text" placeholder="Username" ng-model="regUsername">
-            </label>
-            <label class="item item-input item-floating-label">
-                <span class="input-label">Email Address</span>
-                <input type="email" placeholder="Email Address" ng-model="regEmail">
-            </label>
-            <label class="item item-input item-floating-label">
-                <span class="input-label">Password</span>
-                <input type="password" placeholder="Password" ng-model="regPwd">
-            </label>
+            <form name="regForm">
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="Username" ng-model="regUsername" required>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Email Address</span>
+                    <input type="email" placeholder="Email Address" ng-model="regEmail" required>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="Password" ng-model="regPwd" required>
+                </label>
+            </form>
         </div>
         <div>
-            <a class="button button-clear button-balanced button block" href="#/PrivacyPolicy">By registering you agree to our Privacy Policy</a>
-            <a class="button button-balanced button-block" ng-click="registerCarer()">Register</a>
+            <a class="button button-clear button-balanced button block" href="#/PrivacyPolicy">By registering you agree
+                to our Privacy Policy</a>
+            <a class="button button-balanced button-block" ng-click="registerCarer()" ng-disabled="regForm.$invalid">Register</a>
         </div>
     </ion-content>
 </ion-view>

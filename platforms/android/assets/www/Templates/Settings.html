@@ -9,11 +9,13 @@
         <div class="item item-divider">
             Safe Zone
         </div>
-        <label class="item item-input item-floating-label">
-            <span class="input-label">Change Username</span>
-            <input type="text" placeholder="Change Username" ng-model="updatedUsername">
-        </label>
-        <a class="button button-block button-balanced" ng-click="updateUsername()">Save</a>
+        <form name="changeNameForm">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Change Username</span>
+                <input type="text" placeholder="Change Username" ng-model="updatedUsername" required>
+            </label>
+        </form>
+        <a class="button button-block button-balanced" ng-click="updateUsername()" ng-disabled="changeNameForm.$invalid">Save</a>
         <a class="button button-block button-balanced" href="#/PrivacyPolicy">View Privacy Policy</a>
         <a class="button button-block button-balanced" href="#/Help">Help</a>
         <br/>

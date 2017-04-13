@@ -11,17 +11,20 @@
             <br/>
         </div>
         <div class="pad-top"></div>
-        <label class="item item-input item-floating-label">
-            <span class="input-label">Email Address</span>
-            <input type="email" placeholder="Email Address" ng-model="loginEmail">
-        </label>
-        <label class="item item-input item-floating-label">
-            <span class="input-label">Password</span>
-            <input type="password" placeholder="Password" ng-model="loginPwd">
-        </label>
+        <form name="loginForm">
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Email Address</span>
+                <input type="email" placeholder="Email Address" ng-model="loginEmail" required>
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Password</span>
+                <input type="password" placeholder="Password" ng-model="loginPwd" required>
+            </label>
+        </form>
         <div>
-            <a class="button button-clear button-balanced button block" href="#/PrivacyPolicy">By logging in you agree to our Privacy Policy</a>
-            <a class="button button-balanced button-block" ng-click="getDetails()">Login</a>
+            <a class="button button-clear button-balanced button block" href="#/PrivacyPolicy">By logging in you agree
+                to our Privacy Policy</a>
+            <a class="button button-balanced button-block" ng-click="getDetails()" ng-disabled="loginForm.$invalid">Login</a>
         </div>
     </ion-content>
 </ion-view>

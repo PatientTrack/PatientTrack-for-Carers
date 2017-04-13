@@ -355,7 +355,8 @@ angular.module('starter.controllers', ['ionic'])
         // An alert dialog for Address change
         $scope.showChangeAddressAlert = function () {
             var alertPopup = $ionicPopup.alert({
-                title: $rootScope.selectedPatient.PatientFName + '\'s address changed'
+                title: $rootScope.selectedPatient.PatientFName + '\'s address changed',
+                subTitle: 'Please confirm that the patient\'s app can be used to direct them to this address.'
             });
         };
 
