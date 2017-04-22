@@ -14,10 +14,7 @@
                 <p>{{selectedPatient.PatientEmail}}</p>
             </a>
         </div>
-        <div class="centre" ng-show="selectedPatient.Locations.length === 0">
-            <h4>Patient has no locations stored</h4>
-        </div>
-        <div class="centre" ng-show="selectedPatient.Locations.length > 0">
+        <div class="centre">
             <p>Last located: {{selectedPatient.Locations[selectedPatient.Locations.length - 1].TimeLocated |
                 date:'HH:mm:ss dd/MM/yyyy'}}</p>
         </div>

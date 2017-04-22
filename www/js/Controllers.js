@@ -25,7 +25,7 @@ angular.module('starter.controllers', ['ionic'])
         // Check if user has stored login details
         var email = $window.localStorage.getItem('pt4cLoginEmail');
         var pwd = $window.localStorage.getItem('pt4cLoginPwd');
-        if (email != undefined && pwd != undefined) {
+        if (email !== undefined && pwd !== undefined) {
             console.log('Logging in from localstorage');
             $ionicLoading.show();
             $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + email + '/' + pwd)
@@ -70,7 +70,8 @@ angular.module('starter.controllers', ['ionic'])
             $ionicLoading.show();
             $window.location.href = '#/PatientDetails'
             angular.element(document).ready(function () {
-                $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/' + $rootScope.carers.Patients[index].PatientID)
+                $http.get('http://patienttrackapiv2.azurewebsites.net/api/Patients/'
+                    + $rootScope.carers.Patients[index].PatientID)
                     .success(function (data, status, headers, config) {
                         $ionicLoading.hide();
                         console.log('data success');
@@ -208,10 +209,12 @@ angular.module('starter.controllers', ['ionic'])
                         });
                 }
                 else {
+                    $ionicLoading.hide();
                     $scope.showPwdMismatch();
                 }
             }
             else {
+                $ionicLoading.hide();
                 $scope.showOldPwdError();
             }
         };
@@ -273,7 +276,8 @@ angular.module('starter.controllers', ['ionic'])
                 if (res) {
                     $ionicLoading.show();
                     console.log('Deleting patient');
-                    $http.delete('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID + '/DeletePatient/' + $rootScope.selectedPatient.PatientID)
+                    $http.delete('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID
+                        + '/DeletePatient/' + $rootScope.selectedPatient.PatientID)
                         .success(function (data, status, headers, config) {
                             console.log('Deleted patient successfully');
                             $http.get('http://patienttrackapiv2.azurewebsites.net/api/Carers/' + $rootScope.carers.CarerID)
